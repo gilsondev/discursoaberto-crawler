@@ -51,6 +51,10 @@ class DiscursoSpider(CrawlSpider):
         ]
 
     def parse_search(self, response):
+        """
+        Efetua pesquisa na pagina de consulta dos
+        discursos
+        """
         return FormRequest.from_response(
             response,
             formname="PesqDiscursos",
@@ -66,6 +70,10 @@ class DiscursoSpider(CrawlSpider):
         )
 
     def parse_item(self, response):
+        """
+        Faz parse nos dados do discurso selecionado no
+        resultado da pesquisa
+        """
         item = ItemLoader(item=DiscursoItem(), response=response)
         item.add_xpath('session',
                        '//table[@align="center"]/tr[2]/td[1]/text()',

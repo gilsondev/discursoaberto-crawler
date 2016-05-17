@@ -10,10 +10,11 @@ import scrapy
 from scrapy.loader.processors import MapCompose, TakeFirst
 
 
-def test_text(value):
-    import ipdb; ipdb.set_trace()
-
 class DiscursoItem(scrapy.Item):
+    """
+    Item responsavel por receber os discursos do site da
+    Camara dos Deputados, via raspagem no HTML.
+    """
     session = scrapy.Field(
         input_processor=MapCompose(str.strip),
         output_processor=TakeFirst()
@@ -34,7 +35,10 @@ class DiscursoItem(scrapy.Item):
 
 
 class OradorItem(scrapy.Item):
-
+    """
+    Item responsavel por receber dados do
+    orador do webservice
+    """
     default_input_processor = MapCompose(str.strip)
 
     numero = scrapy.Field()
@@ -44,6 +48,10 @@ class OradorItem(scrapy.Item):
 
 
 class SpeechItem(scrapy.Item):
+    """
+    Item responsavel por receber dados do
+    discurso do webservice
+    """
 
     default_input_processor = MapCompose(str.strip)
 
@@ -55,12 +63,21 @@ class SpeechItem(scrapy.Item):
 
 
 class SessionPhaseItem(scrapy.Item):
+    """
+    Item responsavel por receber dados da
+    fase da sessão do webservice
+    """
+
     code = scrapy.Field()
     description = scrapy.Field()
     speechs = scrapy.Field(serializer=list)
 
 
 class SessionItem(scrapy.Item):
+    """
+    Item responsavel por receber dados da
+    sessão do webservice
+    """
 
     default_input_processor = MapCompose(str.strip)
 
